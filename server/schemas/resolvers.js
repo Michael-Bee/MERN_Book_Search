@@ -24,13 +24,6 @@ const resolvers = {
             return { token,user };
         },
 
-        deleteUser: async (parent, args, context) => {
-            if (context.user) {
-                return User.findOneAndDelete({ _id: context.user._id });
-            }
-            throw new AuthenticationError('You need to be logged in!');
-        },
-
         login: async (parent, {email, password}) => {
             const user = await User.findOne({email});
 
