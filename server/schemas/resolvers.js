@@ -17,7 +17,7 @@ const resolvers = {
         createUser: async (parent, args) => {
             const user = await User.create(args);
             const token = signToken(user);
-            return { token,user };
+            return { token, user };
         },
 
         login: async (parent, {email, password}) => {
@@ -51,7 +51,7 @@ const resolvers = {
             throw new AuthenticationError('Please log in')
         },
 
-        deleteBook: async (parent, { bookId }) => {
+        deleteBook: async (parent, { bookId }, context) => {
             if (context.user) {
                 return  User.findOneAndUpdate(
                     {_id: context.user._id},
